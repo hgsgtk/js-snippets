@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"net/http"
 	"net/url"
 	"os"
 	"time"
@@ -22,7 +23,13 @@ func main() {
 		Host:   os.Getenv("API_ENDPOINT_HOST"),
 		Path:   os.Getenv("API_ENDPOINT_PATH")}
 
-	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	d := websocket.DefaultDialer
+	proxyURL, err := url.Parse("http://localhost:51474")
+	if err != nil {
+		log.Fatalf("Error parsing the proxy URL: %v", err)
+	}
+	d.Proxy = http.ProxyURL(proxyURL)
+	conn, _, err := d.Dial(u.String(), nil)
 	if err != nil {
 		log.Fatal("dial:", err)
 	}
