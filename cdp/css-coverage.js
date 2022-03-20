@@ -52,7 +52,7 @@ const CDP = require('chrome-remote-interface');
             let targetUrl = Object.keys(usages).filter(url => url.match(/top.css/))[0];
             let target = usages[targetUrl];
             let cssText = (await CSS.getStyleSheetText({ styleSheetId: target.header.styleSheetId })).text;
-            
+
             // HTML
             let [buf, index] = target.usages.sort((a, b) => {
                 return a.startOffset - b.startOffset;
