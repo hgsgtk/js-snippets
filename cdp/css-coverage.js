@@ -42,7 +42,7 @@ const CDP = require('chrome-remote-interface');
                         if (usages[sourceURL]) {
                             usages[sourceURL].usages.push(ruleUsage);
                         } else {
-                            usages[sourceURL] = { header, usages: [ruleUsage]};
+                            usages[sourceURL] = { header, usages: [ruleUsage] };
                         }
                     }
                 }
